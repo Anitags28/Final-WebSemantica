@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Catálogo de Películas{% endblock %}
+
+{% block content %}
+<h1 class="my-4">Catálogo de Películas</h1>
+
+<div class="row">
+    {% for pelicula in peliculas %}
+    <div class="col-md-3 mb-4">
+        <div class="card movie-card h-100">
+            <img src="{{ pelicula.imagen }}" class="card-img-top" alt="{{ pelicula.titulo }}">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ pelicula.titulo }}</h5>
+                <p class="card-text text-muted">{{ pelicula.anio }}</p>
+                <a href="{{ url_for('pelicula', id=pelicula.id) }}" class="btn btn-primary mt-auto">Ver Detalles</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if not peliculas %}
+<div class="alert alert-info">
+    No hay películas disponibles en este momento.
+</div>
+{% endif %}
+{% endblock %} 

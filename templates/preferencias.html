@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Obtener recomendaciones - RecomendadorPelículas{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Obtener Recomendaciones</h1>
+    
+    {% if error %}
+    <div class="alert alert-danger">
+        {{ error }}
+    </div>
+    {% endif %}
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Selecciona tus géneros favoritos</h4>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('recomendar') }}" method="post">
+                <div class="row">
+                    {% for genero in generos %}
+                    <div class="col-md-4 col-sm-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="generos" id="genero{{ loop.index }}" value="{{ genero.id }}">
+                            <label class="form-check-label" for="genero{{ loop.index }}">
+                                {{ genero.nombre }}
+                            </label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                {% if not generos %}
+                <div class="alert alert-warning">
+                    No hay géneros disponibles. Esto podría indicar un problema con la carga de datos.
+                </div>
+                {% endif %}
+                
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Recomendar películas</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="alert alert-info">
+        <h5>¿Cómo funciona nuestro recomendador?</h5>
+        <p>Nuestro sistema utiliza tecnología semántica (RDF) para analizar las relaciones entre películas, géneros, directores y actores. A partir de tus preferencias, encontramos películas que coinciden con tus gustos.</p>
+    </div>
+</div>
+{% endblock %} 

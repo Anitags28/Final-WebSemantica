@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - RecomendadorPelículas{% endblock %}
+
+{% block content %}
+<div class="jumbotron mt-4 p-5 bg-light rounded">
+    <h1 class="display-4">Bienvenido a RecomendadorPelículas</h1>
+    <p class="lead">Tu sitio para descubrir nuevas películas basadas en tus gustos.</p>
+    <hr class="my-4">
+    <p>Explora nuestro catálogo de películas o solicita recomendaciones personalizadas basadas en tus preferencias.</p>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a href="{{ url_for('peliculas') }}" class="btn btn-primary btn-lg me-md-2">Ver Catálogo</a>
+        <a href="{{ url_for('recomendar') }}" class="btn btn-success btn-lg">Obtener Recomendaciones</a>
+    </div>
+</div>
+
+<h2 class="mt-5 mb-4">Películas Destacadas</h2>
+
+<div class="row">
+    {% for pelicula in peliculas %}
+    <div class="col-md-4 mb-4">
+        <div class="card movie-card">
+            <img src="{{ pelicula.imagen }}" class="card-img-top" alt="{{ pelicula.titulo }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ pelicula.titulo }} ({{ pelicula.anio }})</h5>
+                <a href="{{ url_for('pelicula', id=pelicula.id) }}" class="btn btn-primary">Ver Detalles</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="mt-5 p-4 bg-light rounded">
+    <h3>¿Cómo funciona?</h3>
+    <p>Nuestro recomendador utiliza tecnología semántica (RDF) para entender las relaciones entre películas, géneros, directores y actores, ofreciéndote recomendaciones personalizadas basadas en tus preferencias.</p>
+    <ol>
+        <li>Explora nuestro catálogo de películas</li>
+        <li>Indica tus géneros favoritos</li>
+        <li>Descubre nuevas películas que te encantarán</li>
+    </ol>
+</div>
+{% endblock %} 
