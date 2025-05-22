@@ -3,17 +3,28 @@ import rdflib
 from rdflib import Graph, Literal, RDF, URIRef
 from rdflib.namespace import RDFS, XSD
 from model import MovieModel, MOVIE, GENRE
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder='static')
+print(f"Directorio de trabajo actual: {os.getcwd()}")
 app.secret_key = 'clave_secreta_para_flash'  # Necesario para los mensajes flash
 
 # Inicializar el modelo
 movie_model = MovieModel()
 
+# Rutas de imágenes locales para las películas (eliminadas)
+# IMAGENES = {
+# ... (resto del diccionario) ...
+# }
+
 @app.route('/')
 def index():
     # Obtener todas las películas para mostrarlas en la página principal
     peliculas = movie_model.obtener_todas_peliculas()
+    # Añadir la ruta de la imagen a cada película
+    for pelicula in peliculas:
+        # Asumir que la imagen está en static/images y el nombre es el id en minúsculas con underscores y .jpg
+        pelicula['imagen'] = f"/static/images/{pelicula['id'].lower().replace(' ', '_').replace('-', '_')}.jpg"
     return render_template('index.html', peliculas=peliculas)
 
 @app.route('/peliculas')

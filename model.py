@@ -1,6 +1,5 @@
 from rdflib import Graph, Namespace, Literal, URIRef
 from rdflib.namespace import RDF, RDFS, XSD
-from imagenes import IMAGENES
 
 # Definir namespaces
 MOVIE = Namespace("http://example.org/movie/")
@@ -261,7 +260,7 @@ class MovieModel:
         # Película 1
         p1 = self.agregar_pelicula("inception", "Inception", 2010, 
                                  "Un ladrón que roba secretos corporativos a través del uso de la tecnología de compartir sueños.",
-                                 IMAGENES["inception"])
+                                 "inception")
         self.agregar_genero(p1, "Ciencia Ficción")
         self.agregar_genero(p1, "Acción")
         self.agregar_director(p1, "Christopher Nolan")
@@ -272,7 +271,7 @@ class MovieModel:
         # Película 2
         p2 = self.agregar_pelicula("the_dark_knight", "The Dark Knight", 2008,
                                  "Batman se enfrenta a una nueva amenaza: un criminal conocido como El Joker.",
-                                 IMAGENES["the_dark_knight"])
+                                 "the_dark_knight")
         self.agregar_genero(p2, "Acción")
         self.agregar_genero(p2, "Drama")
         self.agregar_director(p2, "Christopher Nolan")
@@ -283,7 +282,7 @@ class MovieModel:
         # Película 3
         p3 = self.agregar_pelicula("pulp_fiction", "Pulp Fiction", 1994,
                                  "Las vidas de dos mafiosos, un boxeador, la esposa de un gángster y un par de bandidos se entrelazan.",
-                                 IMAGENES["pulp_fiction"])
+                                 "pulp_fiction")
         self.agregar_genero(p3, "Drama")
         self.agregar_genero(p3, "Crimen")
         self.agregar_director(p3, "Quentin Tarantino")
@@ -294,7 +293,7 @@ class MovieModel:
         # Película 4
         p4 = self.agregar_pelicula("interstellar", "Interstellar", 2014,
                                  "Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.",
-                                 IMAGENES["interstellar"])
+                                 "interstellar")
         self.agregar_genero(p4, "Ciencia Ficción")
         self.agregar_genero(p4, "Aventura")
         self.agregar_director(p4, "Christopher Nolan")
@@ -305,7 +304,7 @@ class MovieModel:
         # Película 5
         p5 = self.agregar_pelicula("coco", "Coco", 2017,
                                  "Miguel sueña con ser un músico pero su familia lo prohíbe. Desesperado por demostrar su talento, se encuentra en la Tierra de los Muertos.",
-                                 IMAGENES["coco"])
+                                 "coco")
         self.agregar_genero(p5, "Animación")
         self.agregar_genero(p5, "Aventura")
         self.agregar_genero(p5, "Familiar")
@@ -318,7 +317,7 @@ class MovieModel:
         # Película 6
         p6 = self.agregar_pelicula("parasite", "Parasite", 2019,
                                  "Una familia pobre idea un plan para infiltrarse como empleados en el hogar de una familia rica.",
-                                 IMAGENES["parasite"])
+                                 "parasite")
         self.agregar_genero(p6, "Drama")
         self.agregar_genero(p6, "Thriller")
         self.agregar_genero(p6, "Comedy")
@@ -332,7 +331,7 @@ class MovieModel:
         # Película 7
         p7 = self.agregar_pelicula("spider_man_into_the_spider_verse", "Spider-Man: Into the Spider-Verse", 2018,
                                  "Miles Morales se convierte en el Spider-Man de su realidad y se une a otros Spider-People de diferentes dimensiones para detener una amenaza para todas las realidades.",
-                                 IMAGENES["spider_man_into_the_spider_verse"])
+                                 "spider_man_into_the_spider_verse")
         self.agregar_genero(p7, "Animación")
         self.agregar_genero(p7, "Acción")
         self.agregar_genero(p7, "Aventura")
@@ -346,7 +345,7 @@ class MovieModel:
         # Película 8
         p8 = self.agregar_pelicula("arrival", "Arrival", 2016,
                                  "Un experto lingüista es reclutado por el ejército para ayudar a determinar si los extraterrestres recién llegados vienen en paz o son una amenaza.",
-                                 IMAGENES["arrival"])
+                                 "arrival")
         self.agregar_genero(p8, "Ciencia Ficción")
         self.agregar_genero(p8, "Drama")
         self.agregar_genero(p8, "Misterio")
