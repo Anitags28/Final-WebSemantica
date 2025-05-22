@@ -5,6 +5,7 @@ from rdflib.namespace import RDFS, XSD
 from model import MovieModel, MOVIE, GENRE
 import os
 
+
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 print(f"Directorio de trabajo actual: {os.getcwd()}")
 app.secret_key = 'clave_secreta_para_flash'  # Necesario para los mensajes flash
