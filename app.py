@@ -1,4 +1,3 @@
-#-*- coding: utf-8 -*-
 from flask import Flask, render_template, request, redirect, url_for, flash
 import rdflib
 from rdflib import Graph, Literal, RDF, URIRef
@@ -51,14 +50,8 @@ def recomendar():
             return render_template('preferencias.html', generos=generos, 
                                 error="Por favor, selecciona al menos un género.")
         
-        # Lógica simple de recomendación basada en géneros seleccionados
-        recomendaciones = []
-        for genero_id in generos_seleccionados:
-            peliculas_genero = movie_model.recomendar_por_genero(genero_id)
-            for pelicula in peliculas_genero:
-                # Evitar duplicados comparando por ID
-                if not any(p['id'] == pelicula['id'] for p in recomendaciones):
-                    recomendaciones.append(pelicula)
+        # Usar el nuevo sistema de recomendación por múltiples géneros
+        recomendaciones = movie_model.recomendar_por_generos(generos_seleccionados)
         
         return render_template('recomendaciones.html', recomendaciones=recomendaciones,
                               generos_seleccionados=generos_seleccionados)
@@ -81,12 +74,20 @@ def calificar(id):
             movie_model.agregar_calificacion(pelicula_uri, calificacion)
             # Obtener el título de la película para mostrar en el mensaje
             titulo = str(movie_model.g.value(pelicula_uri, MOVIE.title))
-            flash(f'Has calificado "{titulo}" con {calificacion} estrellas. Gracias por tu opinion.', 'success')
-
+            flash(f'¡Has calificado "{titulo}" con {calificacion} estrellas! Gracias por tu opinión.', 'success')
         else:
-            flash(f'Por favor, selecciona una calificación válida (1-5)', 'warning')
+            flash('Por favor, selecciona una calificación válida (1-5)', 'warning')
     
     return redirect(url_for('pelicula', id=id))
+
+@app.route('/buscar', methods=['GET'])
+def buscar():
+    query = request.args.get('query')
+    resultados = []
+    if query:
+        resultados = movie_model.buscar_peliculas_por_texto(query)
+    
+    return render_template('resultados_busqueda.html', query=query, resultados=resultados)
 
 if __name__ == '__main__':
     # Cargar datos de muestra
