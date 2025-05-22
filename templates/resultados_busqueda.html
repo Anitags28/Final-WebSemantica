@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Resultados de Búsqueda - RecomendadorPelículas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Resultados de búsqueda para "{{ query }}"</h2>
+
+    {% if resultados %}
+    <div class="row">
+        {% for pelicula in resultados %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="{{ pelicula.imagen }}" class="card-img-top" alt="{{ pelicula.titulo }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ pelicula.titulo }}</h5>
+                    <p class="card-text">
+                        <small class="text-muted">Año: {{ pelicula.anio }}</small><br>
+                        <strong>Calificación:</strong> {{ pelicula.calificacion.promedio }}/5.0 
+                        ({{ pelicula.calificacion.total_votos }} votos)
+                    </p>
+                    <a href="{{ url_for('pelicula', id=pelicula.id) }}" class="btn btn-primary">Ver detalles</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+        No se encontraron películas que coincidan con "{{ query }}".
+    </div>
+    {% endif %}
+
+    <div class="mt-4">
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver a la página principal</a>
+    </div>
+</div>
+{% endblock %} 

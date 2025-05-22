@@ -14,6 +14,17 @@
     </div>
 </div>
 
+<!-- Formulario de Búsqueda en la Página Principal -->
+<div class="mt-4 mb-4">
+    <h3>Buscar películas</h3>
+    <form action="{{ url_for('buscar') }}" method="get">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Buscar por título o sinopsis..." aria-label="Buscar por título o sinopsis" name="query">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </div>
+    </form>
+</div>
+
 <h2 class="mt-5 mb-4">Películas Destacadas</h2>
 
 <div class="row">
