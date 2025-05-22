@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 from flask import Flask, render_template, request, redirect, url_for, flash
 import rdflib
 from rdflib import Graph, Literal, RDF, URIRef
@@ -80,9 +81,10 @@ def calificar(id):
             movie_model.agregar_calificacion(pelicula_uri, calificacion)
             # Obtener el título de la película para mostrar en el mensaje
             titulo = str(movie_model.g.value(pelicula_uri, MOVIE.title))
-            flash(f'¡Has calificado "{titulo}" con {calificacion} estrellas! Gracias por tu opinión.', 'success')
+            flash(f'Has calificado "{titulo}" con {calificacion} estrellas. Gracias por tu opinion.', 'success')
+
         else:
-            flash('Por favor, selecciona una calificación válida (1-5)', 'warning')
+            flash(f'Por favor, selecciona una calificación válida (1-5)', 'warning')
     
     return redirect(url_for('pelicula', id=id))
 
