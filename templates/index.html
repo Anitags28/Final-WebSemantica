@@ -34,7 +34,6 @@
             <img src="{{ pelicula.imagen }}" class="card-img-top" alt="{{ pelicula.titulo }}">
             <div class="card-body">
                 <h5 class="card-title">{{ pelicula.titulo }} ({{ pelicula.anio }})</h5>
-                <p>Ruta de imagen: {{ pelicula.imagen }}</p>
                 <a href="{{ url_for('pelicula', id=pelicula.id) }}" class="btn btn-primary">Ver Detalles</a>
             </div>
         </div>

@@ -24,20 +24,37 @@ def index():
     peliculas = movie_model.obtener_todas_peliculas()
     # Añadir la ruta de la imagen a cada película
     for pelicula in peliculas:
-        # Asumir que la imagen está en static/images y el nombre es el id en minúsculas con underscores y .jpg
-        pelicula['imagen'] = f"/static/images/{pelicula['id'].lower().replace(' ', '_').replace('-', '_')}.jpg"
+        # Usar el ID de la película para construir la ruta de la imagen
+        imagen_path = f"/static/images/{pelicula['id']}.jpg"
+        # Verificar si la imagen existe, si no, usar una imagen por defecto
+        if not os.path.exists(os.path.join(app.static_folder, 'images', f"{pelicula['id']}.jpg")):
+            imagen_path = "/static/images/default.jpg"
+        pelicula['imagen'] = imagen_path
     return render_template('index.html', peliculas=peliculas)
 
 @app.route('/peliculas')
 def peliculas():
     # Obtener todas las películas
     peliculas = movie_model.obtener_todas_peliculas()
+    # Añadir la ruta de la imagen a cada película
+    for pelicula in peliculas:
+        # Usar el ID de la película para construir la ruta de la imagen
+        imagen_path = f"/static/images/{pelicula['id']}.jpg"
+        # Verificar si la imagen existe, si no, usar una imagen por defecto
+        if not os.path.exists(os.path.join(app.static_folder, 'images', f"{pelicula['id']}.jpg")):
+            imagen_path = "/static/images/default.jpg"
+        pelicula['imagen'] = imagen_path
     return render_template('peliculas.html', peliculas=peliculas)
 
 @app.route('/pelicula/<id>')
 def pelicula(id):
     # Obtener detalles de una película específica
     detalles = movie_model.obtener_pelicula(id)
+    # Asegurar que la ruta de la imagen sea correcta
+    imagen_path = f"/static/images/{id}.jpg"
+    if not os.path.exists(os.path.join(app.static_folder, 'images', f"{id}.jpg")):
+        imagen_path = "/static/images/default.jpg"
+    detalles['imagen'] = imagen_path
     return render_template('pelicula.html', pelicula=detalles)
 
 @app.route('/genero/<genero_id>')

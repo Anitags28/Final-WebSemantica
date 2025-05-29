@@ -17,8 +17,10 @@ class MovieModel:
         self.g.bind("director", DIRECTOR)
         self.g.bind("actor", ACTOR)
     
-    def agregar_pelicula(self, id, titulo, anio, sinopsis, imagen_url):
+    def agregar_pelicula(self, titulo, anio, sinopsis, imagen_url):
         """Agrega una película al grafo RDF"""
+        # Generar un ID único para la película basado en el título
+        id = titulo.lower().replace(" ", "_").replace(":", "").replace("-", "_")
         pelicula_uri = URIRef(MOVIE + id)
         
         self.g.add((pelicula_uri, RDF.type, MOVIE.Movie))
@@ -258,7 +260,7 @@ class MovieModel:
     def cargar_datos_muestra(self):
         """Carga datos de ejemplo para probar la aplicación"""
         # Película 1
-        p1 = self.agregar_pelicula("inception", "Inception", 2010, 
+        p1 = self.agregar_pelicula("inception", 2010, 
                                  "Un ladrón que roba secretos corporativos a través del uso de la tecnología de compartir sueños.",
                                  "inception")
         self.agregar_genero(p1, "Ciencia Ficción")
@@ -269,7 +271,7 @@ class MovieModel:
         self.agregar_calificacion(p1, 5)
         
         # Película 2
-        p2 = self.agregar_pelicula("the_dark_knight", "The Dark Knight", 2008,
+        p2 = self.agregar_pelicula("the_dark_knight", 2008,
                                  "Batman se enfrenta a una nueva amenaza: un criminal conocido como El Joker.",
                                  "the_dark_knight")
         self.agregar_genero(p2, "Acción")
@@ -280,7 +282,7 @@ class MovieModel:
         self.agregar_calificacion(p2, 5)
         
         # Película 3
-        p3 = self.agregar_pelicula("pulp_fiction", "Pulp Fiction", 1994,
+        p3 = self.agregar_pelicula("pulp_fiction", 1994,
                                  "Las vidas de dos mafiosos, un boxeador, la esposa de un gángster y un par de bandidos se entrelazan.",
                                  "pulp_fiction")
         self.agregar_genero(p3, "Drama")
@@ -291,7 +293,7 @@ class MovieModel:
         self.agregar_calificacion(p3, 5)
         
         # Película 4
-        p4 = self.agregar_pelicula("interstellar", "Interstellar", 2014,
+        p4 = self.agregar_pelicula("interstellar", 2014,
                                  "Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.",
                                  "interstellar")
         self.agregar_genero(p4, "Ciencia Ficción")
@@ -302,7 +304,7 @@ class MovieModel:
         self.agregar_calificacion(p4, 5)
         
         # Película 5
-        p5 = self.agregar_pelicula("coco", "Coco", 2017,
+        p5 = self.agregar_pelicula("coco", 2017,
                                  "Miguel sueña con ser un músico pero su familia lo prohíbe. Desesperado por demostrar su talento, se encuentra en la Tierra de los Muertos.",
                                  "coco")
         self.agregar_genero(p5, "Animación")
@@ -315,7 +317,7 @@ class MovieModel:
         self.agregar_calificacion(p5, 5)
 
         # Película 6
-        p6 = self.agregar_pelicula("parasite", "Parasite", 2019,
+        p6 = self.agregar_pelicula("parasite", 2019,
                                  "Una familia pobre idea un plan para infiltrarse como empleados en el hogar de una familia rica.",
                                  "parasite")
         self.agregar_genero(p6, "Drama")
@@ -329,7 +331,7 @@ class MovieModel:
         self.agregar_calificacion(p6, 5)
 
         # Película 7
-        p7 = self.agregar_pelicula("spider_man_into_the_spider_verse", "Spider-Man: Into the Spider-Verse", 2018,
+        p7 = self.agregar_pelicula("spider_man_into_the_spider_verse", 2018,
                                  "Miles Morales se convierte en el Spider-Man de su realidad y se une a otros Spider-People de diferentes dimensiones para detener una amenaza para todas las realidades.",
                                  "spider_man_into_the_spider_verse")
         self.agregar_genero(p7, "Animación")
@@ -343,7 +345,7 @@ class MovieModel:
         self.agregar_calificacion(p7, 5)
 
         # Película 8
-        p8 = self.agregar_pelicula("arrival", "Arrival", 2016,
+        p8 = self.agregar_pelicula("arrival", 2016,
                                  "Un experto lingüista es reclutado por el ejército para ayudar a determinar si los extraterrestres recién llegados vienen en paz o son una amenaza.",
                                  "arrival")
         self.agregar_genero(p8, "Ciencia Ficción")
