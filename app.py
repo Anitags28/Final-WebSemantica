@@ -115,7 +115,15 @@ def buscar():
     resultados = []
     if query:
         resultados = movie_model.buscar_peliculas_por_texto(query)
-    
+        # Añadir la ruta de la imagen a cada resultado
+        for pelicula in resultados:
+            # Usar el ID de la película para construir la ruta de la imagen
+            imagen_path = f"/static/images/{pelicula['id']}.jpg"
+            # Verificar si la imagen existe, si no, usar una imagen por defecto
+            if not os.path.exists(os.path.join(app.static_folder, 'images', f"{pelicula['id']}.jpg")):
+                imagen_path = "/static/images/default.jpg"
+            pelicula['imagen'] = imagen_path
+
     return render_template('resultados_busqueda.html', query=query, resultados=resultados)
 
 if __name__ == '__main__':
