@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import rdflib
 from rdflib import Graph, Literal, RDF, URIRef
 from rdflib.namespace import RDFS, XSD
-from model import MovieModel, MOVIE, GENRE
+from model import MovieModel, MOVIE, GENRE, crear_pelicula
+from app/rdf_loader import cargar_a_fuseki
 import os
 
 
@@ -20,6 +21,9 @@ movie_model = MovieModel()
 
 @app.route('/')
 def index():
+    return render_template('formulario.html')
+
+
     # Obtener todas las películas para mostrarlas en la página principal
     peliculas = movie_model.obtener_todas_peliculas()
     # Añadir la ruta de la imagen a cada película
@@ -30,7 +34,18 @@ def index():
         if not os.path.exists(os.path.join(app.static_folder, 'images', f"{pelicula['id']}.jpg")):
             imagen_path = "/static/images/default.jpg"
         pelicula['imagen'] = imagen_path
-    return render_template('index.html', peliculas=peliculas)
+    #return render_template('index.html', peliculas=peliculas)
+
+@app.route('/agregar', methods=['POST'])
+def agregar():
+    titulo = request.form["titulo"]
+    director = request.form["director"]
+    año = int(request.form["año"])
+    genero = request.form["genero"]
+
+    grafo = crear_pelicula(titulo, director, año, genero)
+    cargar_a_fuseki(grafo)
+    return redirect(url_for("index"))
 
 @app.route('/peliculas')
 def peliculas():

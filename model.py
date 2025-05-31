@@ -6,6 +6,30 @@ MOVIE = Namespace("http://example.org/movie/")
 GENRE = Namespace("http://example.org/genre/")
 DIRECTOR = Namespace("http://example.org/director/")
 ACTOR = Namespace("http://example.org/actor/")
+# Namespace principal
+EX = Namespace("http://example.org/movie/")
+
+def crear_pelicula(titulo, director, año, genero):
+    g = Graph()
+    g.bind("ex", EX)
+
+    # Crear URI única para la película
+    uri_pelicula = URIRef(EX[titulo.lower().replace(" ", "_")])
+
+    g.add((uri_pelicula, RDF.type, EX.Movie))
+    g.add((uri_pelicula, EX.title, Literal(titulo, datatype=XSD.string)))
+    g.add((uri_pelicula, EX.director, Literal(director, datatype=XSD.string)))
+    g.add((uri_pelicula, EX.year, Literal(año, datatype=XSD.gYear)))
+    g.add((uri_pelicula, EX.genre, Literal(genero, datatype=XSD.string)))
+
+    return g
+
+# Ontología adicional si deseas extender el modelo
+def definir_ontologia():
+    g = Graph()
+    g.bind("ex", EX)
+    g.add((EX.Movie, RDF.type, XSD.string))  # Este tipo puede ajustarse
+    return g
 
 class MovieModel:
     def __init__(self):
