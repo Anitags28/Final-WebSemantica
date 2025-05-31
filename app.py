@@ -3,7 +3,7 @@ import rdflib
 from rdflib import Graph, Literal, RDF, URIRef
 from rdflib.namespace import RDFS, XSD
 from model import MovieModel, MOVIE, GENRE, crear_pelicula
-from app/rdf_loader import cargar_a_fuseki
+from app.rdf_loader import cargar_a_fuseki
 import os
 
 
